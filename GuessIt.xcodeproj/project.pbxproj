@@ -12,6 +12,7 @@
 		D8CE89C92A7E78B1004EF8AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8CE89C82A7E78B1004EF8AE /* Assets.xcassets */; };
 		D8CE89CC2A7E78B1004EF8AE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8CE89CB2A7E78B1004EF8AE /* Preview Assets.xcassets */; };
 		D8CE89D42A7E790E004EF8AE /* Randomizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CE89D32A7E790E004EF8AE /* Randomizer.swift */; };
+		D8CE8A162A7EA4F3004EF8AE /* TestSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CE8A152A7EA4F3004EF8AE /* TestSlider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		D8CE89C82A7E78B1004EF8AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D8CE89CB2A7E78B1004EF8AE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D8CE89D32A7E790E004EF8AE /* Randomizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Randomizer.swift; sourceTree = "<group>"; };
+		D8CE8A152A7EA4F3004EF8AE /* TestSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSlider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 			children = (
 				D8CE89D22A7E78DD004EF8AE /* Models */,
 				D8CE89C42A7E78AA004EF8AE /* GuessItApp.swift */,
+				D8CE8A152A7EA4F3004EF8AE /* TestSlider.swift */,
 				D8CE89C62A7E78AA004EF8AE /* ContentView.swift */,
 				D8CE89C82A7E78B1004EF8AE /* Assets.xcassets */,
 				D8CE89CA2A7E78B1004EF8AE /* Preview Content */,
@@ -151,6 +154,7 @@
 			files = (
 				D8CE89C72A7E78AA004EF8AE /* ContentView.swift in Sources */,
 				D8CE89D42A7E790E004EF8AE /* Randomizer.swift in Sources */,
+				D8CE8A162A7EA4F3004EF8AE /* TestSlider.swift in Sources */,
 				D8CE89C52A7E78AA004EF8AE /* GuessItApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

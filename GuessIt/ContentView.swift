@@ -9,10 +9,14 @@ import SwiftUI
 
 struct ContentView: View {
     
+//    @Binding var value: Float
+    
     private let targetValue = Randomizer().randomValue
     
     var body: some View {
         VStack(spacing: 30) {
+            
+//            TestSlider(sliderValue: $value)
             Text("Подвиньте слайдер как можно ближе к: \(targetValue)")
             // slider
             
@@ -38,6 +42,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView() //(value: .constant(50.0))
     }
 }
