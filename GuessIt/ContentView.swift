@@ -9,11 +9,16 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var value = Game().targetValue
+    @State private var value = Float(0)
     
     @EnvironmentObject private var game: Game
     
-    private let slider = TestSlider(currentValue: .constant(10))
+    private let slider = TestSlider(
+        currentValue: .constant(50),
+        minValue: 100,
+        maxValue: 200,
+        thumbOpacity: 1
+    )
     
     var body: some View {
         VStack(spacing: 30) {
@@ -23,7 +28,7 @@ struct ContentView: View {
             
             HStack {
                 Text("\(slider.minValue.formatted())")
-                TestSlider(currentValue: $value)
+                TestSlider(currentValue: $value, thumbOpacity: getThumbOpacity(for: value))
                 Text("\(slider.maxValue.formatted())")
             }
             
@@ -44,6 +49,13 @@ struct ContentView: View {
     
     private func newGame() {
         
+    }
+    
+    private func getThumbOpacity(for value: Float) -> CGFloat {
+        let range = slider.maxValue - slider.minValue
+        let delta = abs(Int(value) - game.targetValue)
+
+        return CGFloat(1 - delta / range)
     }
     
 }

@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct GuessItApp: App {
     
-    @StateObject private var game = Game()
+    @StateObject private var game = Game(minPlayValue: 100, maxPlayValue: 200)
     
     var body: some Scene {
         WindowGroup {

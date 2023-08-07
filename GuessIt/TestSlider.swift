@@ -10,18 +10,16 @@ import SwiftUI
 struct TestSlider: UIViewRepresentable {
         
     @Binding var currentValue: Float
-    @EnvironmentObject private var game: Game
     
     // Default values - can be set different
-    var minValue: Float = 0
-    var maxValue: Float = 100
+    var minValue = 0
+    var maxValue = 100
     var thumbOpacity: CGFloat = 1
     
     func makeUIView(context: Context) -> UISlider {
         let slider = UISlider()
-        // Exclude wrong values, min difference should be 50
-        slider.minimumValue = minValue < 0 ? 0 : minValue
-        slider.maximumValue = (maxValue - minValue) < 50 ? 50 : maxValue
+        slider.minimumValue = Float(minValue)
+        slider.maximumValue = Float(maxValue)
         
         slider.value = currentValue
         slider.thumbTintColor = UIColor(
@@ -46,13 +44,6 @@ struct TestSlider: UIViewRepresentable {
     func makeCoordinator() -> Coordinator {
         Coordinator(value: $currentValue)
     }
-    
-//    private func getThumbOpacity(for value: Float) -> CGFloat {
-//        let range = maxValue - minValue
-//        let delta = abs(value - game.randomValue)
-//
-//        return CGFloat(1 - delta / range)
-//    }
 
 }
 
