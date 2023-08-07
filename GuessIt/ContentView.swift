@@ -24,7 +24,6 @@ struct ContentView: View {
                 Text("\(game.minPlayValue.formatted())")
                 TestSlider(
                     currentValue: $value,
-                    thumbOpacity: $thumbOpacity,
                     minValue: game.minPlayValue,
                     maxValue: game.maxPlayValue
                 )

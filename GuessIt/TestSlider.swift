@@ -10,7 +10,6 @@ import SwiftUI
 struct TestSlider: UIViewRepresentable {
         
     @Binding var currentValue: Float
-    @Binding var thumbOpacity: CGFloat
     
     // Default values - can be set different
     var minValue = 0
@@ -20,13 +19,12 @@ struct TestSlider: UIViewRepresentable {
         let slider = UISlider()
         slider.minimumValue = Float(minValue)
         slider.maximumValue = Float(maxValue)
-        
         slider.value = currentValue
         slider.thumbTintColor = UIColor(
             red: 1.0,
             green: 0.0,
             blue: 0.0,
-            alpha: thumbOpacity
+            alpha: 1
         )
         
         slider.addTarget(
@@ -39,10 +37,17 @@ struct TestSlider: UIViewRepresentable {
     
     func updateUIView(_ uiView: UISlider, context: Context) {
         uiView.value = currentValue
+        
     }
     
     func makeCoordinator() -> Coordinator {
         Coordinator(value: $currentValue)
+    }
+    
+    private func setThumbOpacity() {
+//        let range = game.maxPlayValue - game.minPlayValue
+//        let delta = abs(Int(value) - game.targetValue)
+//        thumbOpacity = CGFloat(1 - delta / range)
     }
 
 }
@@ -63,8 +68,6 @@ extension TestSlider {
 
 struct TestSlider_Previews: PreviewProvider {
     static var previews: some View {
-        TestSlider(
-            currentValue: .constant(50),
-            thumbOpacity: .constant(1))
+        TestSlider(currentValue: .constant(20))
     }
 }
