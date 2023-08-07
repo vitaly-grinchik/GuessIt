@@ -9,16 +9,23 @@ import SwiftUI
 
 struct ContentView: View {
     
-//    @Binding var value: Float
+    @State private var value = Game().targetValue
     
-    private let targetValue = Randomizer().randomValue
+    @EnvironmentObject private var game: Game
+    
+    private let slider = TestSlider(currentValue: .constant(10))
     
     var body: some View {
         VStack(spacing: 30) {
+            Text("\(Int(value))")
+                .font(.largeTitle)
+            Text("Подвиньте слайдер как можно ближе к: \(game.targetValue.formatted())")
             
-//            TestSlider(sliderValue: $value)
-            Text("Подвиньте слайдер как можно ближе к: \(targetValue)")
-            // slider
+            HStack {
+                Text("\(slider.minValue.formatted())")
+                TestSlider(currentValue: $value)
+                Text("\(slider.maxValue.formatted())")
+            }
             
             Button("Проверь меня!") {
                 check()
@@ -38,10 +45,12 @@ struct ContentView: View {
     private func newGame() {
         
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView() //(value: .constant(50.0))
+        ContentView()
+            .environmentObject(Game())//currentValue: .constant(10))
     }
 }

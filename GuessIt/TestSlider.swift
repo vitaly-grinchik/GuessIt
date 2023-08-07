@@ -8,24 +8,29 @@
 import SwiftUI
 
 struct TestSlider: UIViewRepresentable {
+        
+    @Binding var currentValue: Float
+    @EnvironmentObject private var game: Game
     
-    @Binding var sliderValue: Float
-    
-    private let sliderMinValue: Float = 0
-    private let sliderMaxValue: Float = 100
-    private let sliderInitValue: Float = 50
+    // Default values - can be set different
+    var minValue: Float = 0
+    var maxValue: Float = 100
+    var thumbOpacity: CGFloat = 1
     
     func makeUIView(context: Context) -> UISlider {
         let slider = UISlider()
-        slider.minimumValue = sliderMinValue
-        slider.maximumValue = sliderMaxValue
-        slider.value = sliderInitValue
+        // Exclude wrong values, min difference should be 50
+        slider.minimumValue = minValue < 0 ? 0 : minValue
+        slider.maximumValue = (maxValue - minValue) < 50 ? 50 : maxValue
+        
+        slider.value = currentValue
         slider.thumbTintColor = UIColor(
             red: 1.0,
             green: 0.0,
             blue: 0.0,
-            alpha: CGFloat(sliderValue / sliderMaxValue + 0.05)
+            alpha: thumbOpacity
         )
+        
         slider.addTarget(
             context.coordinator,
             action: #selector(Coordinator.sliderMoved),
@@ -35,34 +40,38 @@ struct TestSlider: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UISlider, context: Context) {
-        uiView.value = sliderValue
+        uiView.value = currentValue
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(value: $sliderValue)
+        Coordinator(value: $currentValue)
     }
     
-    private func getThumbOpacity() -> Float {
-        return Float()
-    }
+//    private func getThumbOpacity(for value: Float) -> CGFloat {
+//        let range = maxValue - minValue
+//        let delta = abs(value - game.randomValue)
+//
+//        return CGFloat(1 - delta / range)
+//    }
+
 }
 
 extension TestSlider {
     class Coordinator: NSObject {
-        @Binding var sliderValue: Float
+        @Binding var value: Float
         
         init(value: Binding<Float>) {
-            self._sliderValue = value
+            self._value = value
         }
         
         @objc func sliderMoved(_ sender: UISlider) {
-            sliderValue = sender.value
+            value = sender.value
         }
     }
 }
 
 struct TestSlider_Previews: PreviewProvider {
     static var previews: some View {
-        TestSlider(sliderValue: .constant(30))
+        TestSlider(currentValue: .constant(90))
     }
 }
