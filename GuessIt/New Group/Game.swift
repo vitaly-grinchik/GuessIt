@@ -26,10 +26,10 @@ class Game {
         self.targetValue = Int.random(in: minPlayValue...maxPlayValue)
     }
     
-    func getScore(for value: Int) -> Int {
+    func getScore(for value: Float) -> Int {
         let range = maxPlayValue - minPlayValue
-        let delta = abs(value - targetValue)
+        let delta = abs(Int(value) - targetValue)
 
-        return Int(100 * delta / range)
+        return Int(100 - 100 * delta / range)
     }
 }

@@ -10,9 +10,13 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var value: Float = 0
-    @State private var thumbOpacity: CGFloat = 1
+    @State private var showResult = false
     
-    private let game = Game()
+    private let game = Game(minPlayValue: 0, maxPlayValue: 100)
+    
+    private var score: Int {
+        game.getScore(for: value)
+    }
     
     var body: some View {
         VStack(spacing: 30) {
@@ -32,8 +36,14 @@ struct ContentView: View {
             }
             
             Button("Проверь меня!") {
-                check()
+                showResult.toggle()
             }
+            .alert(
+                "Your score: \(score)",
+                isPresented: $showResult) {
+                    Text("Hello!")
+                }
+            
             
             Button("Начать заново") {
                 newGame()
@@ -42,19 +52,15 @@ struct ContentView: View {
         .padding()
     }
     
-    private func check() {
-        
-    }
-    
     private func newGame() {
         
     }
     
-    private func setThumbOpacity(for value: Float) {
-        let range = game.maxPlayValue - game.minPlayValue
-        let delta = abs(Int(value) - game.targetValue)
-        thumbOpacity = CGFloat(1 - delta / range)
-    }
+//    private func setThumbOpacity(for value: Float) {
+//        let range = game.maxPlayValue - game.minPlayValue
+//        let delta = abs(Int(value) - game.targetValue)
+//        thumbOpacity = CGFloat(1 - delta / range)
+//    }
     
 }
 
