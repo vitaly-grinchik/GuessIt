@@ -9,16 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var value = Float(0)
+    @State private var value: Float = 0
+    @State private var thumbOpacity: CGFloat = 1
     
-    @EnvironmentObject private var game: Game
-    
-    private let slider = TestSlider(
-        currentValue: .constant(50),
-        minValue: 100,
-        maxValue: 200,
-        thumbOpacity: 1
-    )
+    private let game = Game()
     
     var body: some View {
         VStack(spacing: 30) {
@@ -27,9 +21,15 @@ struct ContentView: View {
             Text("Подвиньте слайдер как можно ближе к: \(game.targetValue.formatted())")
             
             HStack {
-                Text("\(slider.minValue.formatted())")
-                TestSlider(currentValue: $value, thumbOpacity: getThumbOpacity(for: value))
-                Text("\(slider.maxValue.formatted())")
+                Text("\(game.minPlayValue.formatted())")
+                TestSlider(
+                    currentValue: $value,
+                    thumbOpacity: $thumbOpacity,
+                    minValue: game.minPlayValue,
+                    maxValue: game.maxPlayValue
+                )
+                
+                Text("\(game.maxPlayValue.formatted())")
             }
             
             Button("Проверь меня!") {
@@ -51,11 +51,10 @@ struct ContentView: View {
         
     }
     
-    private func getThumbOpacity(for value: Float) -> CGFloat {
-        let range = slider.maxValue - slider.minValue
+    private func setThumbOpacity(for value: Float) {
+        let range = game.maxPlayValue - game.minPlayValue
         let delta = abs(Int(value) - game.targetValue)
-
-        return CGFloat(1 - delta / range)
+        thumbOpacity = CGFloat(1 - delta / range)
     }
     
 }
@@ -63,6 +62,5 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(Game())//currentValue: .constant(10))
     }
 }

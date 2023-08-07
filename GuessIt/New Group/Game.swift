@@ -7,10 +7,8 @@
 
 import Foundation
 
-class Game: ObservableObject {
-    // Value to guess
-    @Published var targetValue: Int
-    // Play range
+class Game {
+    var targetValue: Int
     var minPlayValue: Int
     var maxPlayValue: Int
     
@@ -31,7 +29,7 @@ class Game: ObservableObject {
     func getScore(for value: Int) -> Int {
         let range = maxPlayValue - minPlayValue
         let delta = abs(value - targetValue)
-        
+
         return Int(100 * delta / range)
     }
 }

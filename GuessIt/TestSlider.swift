@@ -10,11 +10,11 @@ import SwiftUI
 struct TestSlider: UIViewRepresentable {
         
     @Binding var currentValue: Float
+    @Binding var thumbOpacity: CGFloat
     
     // Default values - can be set different
     var minValue = 0
     var maxValue = 100
-    var thumbOpacity: CGFloat = 1
     
     func makeUIView(context: Context) -> UISlider {
         let slider = UISlider()
@@ -63,6 +63,8 @@ extension TestSlider {
 
 struct TestSlider_Previews: PreviewProvider {
     static var previews: some View {
-        TestSlider(currentValue: .constant(90))
+        TestSlider(
+            currentValue: .constant(50),
+            thumbOpacity: .constant(1))
     }
 }
