@@ -37,25 +37,26 @@ struct TestSlider: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UISlider, context: Context) {
+        let thumpOpacity = getThumbOpacity()
         uiView.value = currentValue
         uiView.thumbTintColor = UIColor(
             red: 1.0,
             green: 0.0,
             blue: 0.0,
-            alpha: CGFloat(1 - abs(currentValue - targetValue)/100)
+            alpha: thumpOpacity == 0 ? 0.05 : thumpOpacity
         )
-        
     }
     
     func makeCoordinator() -> Coordinator {
         Coordinator(value: $currentValue)
     }
     
+    // Calculate thumb opacity corresponding to guessed value proximity
+    // to the target value. Slider total range is being taken into account
     private func getThumbOpacity() -> CGFloat {
-//        let range = game.maxPlayValue - game.minPlayValue
-//        let delta = abs(Int(value) - game.targetValue)
-//        thumbOpacity = CGFloat(1 - delta / range)
-        return CGFloat(1)
+        let range = Float(maxValue - minValue)
+        let delta = abs(currentValue - targetValue)
+        return CGFloat(1 - delta / range)
     }
 
 }
@@ -78,7 +79,7 @@ struct TestSlider_Previews: PreviewProvider {
     static var previews: some View {
         TestSlider(
             currentValue: .constant(100),
-            targetValue: Float(20)
+            targetValue: Float(0)
         )
     }
 }

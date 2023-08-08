@@ -36,26 +36,26 @@ struct ContentView: View {
                 Text("\(game.maxPlayValue.formatted())")
             }
             
-            Button("Проверь меня!") {
-                showingScoreAlert = true
-            }
+            Button("Проверь меня!") { showingScoreAlert.toggle() }
+            .alert(
+                "Your Score",
+                isPresented: $showingScoreAlert,
+                actions: {},
+                message: {
+                    Text("\(score.formatted())")
+                }
+            )
             
             Button("Начать заново") {
-                newGame()
+                restart()
             }
         }
         .padding()
     }
     
-    private func newGame() {
+    private func restart() {
         
     }
-    
-//    private func setThumbOpacity(for value: Float) {
-//        let range = game.maxPlayValue - game.minPlayValue
-//        let delta = abs(Int(value) - game.targetValue)
-//        thumbOpacity = CGFloat(1 - delta / range)
-//    }
     
 }
 
