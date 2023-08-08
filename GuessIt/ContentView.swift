@@ -11,8 +11,7 @@ struct ContentView: View {
     
     @State private var value: Float = 0
     @State private var showingScoreAlert = false
-    
-    private let game = Game(minPlayValue: 0, maxPlayValue: 100)
+    @State private var game = Game()
     
     private var score: Int {
         game.getScore(for: value)
@@ -47,6 +46,7 @@ struct ContentView: View {
             )
             
             Button("Начать заново") {
+                value = 0.0
                 restart()
             }
         }
@@ -54,7 +54,7 @@ struct ContentView: View {
     }
     
     private func restart() {
-        
+        game = Game()
     }
     
 }
