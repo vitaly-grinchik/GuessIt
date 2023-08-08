@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var value: Float = 0
-    @State private var showResult = false
+    @State private var showingScoreAlert = false
     
     private let game = Game(minPlayValue: 0, maxPlayValue: 100)
     
@@ -28,6 +28,7 @@ struct ContentView: View {
                 Text("\(game.minPlayValue.formatted())")
                 TestSlider(
                     currentValue: $value,
+                    targetValue: Float(game.targetValue),
                     minValue: game.minPlayValue,
                     maxValue: game.maxPlayValue
                 )
@@ -36,14 +37,8 @@ struct ContentView: View {
             }
             
             Button("Проверь меня!") {
-                showResult.toggle()
+                showingScoreAlert = true
             }
-            .alert(
-                "Your score: \(score)",
-                isPresented: $showResult) {
-                    Text("Hello!")
-                }
-            
             
             Button("Начать заново") {
                 newGame()
