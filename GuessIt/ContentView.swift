@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @State private var game = Game()
     @State private var value: Float = 0
     @State private var showingScoreAlert = false
-    @State private var game = Game()
     
     private var score: Int {
         game.getScore(for: value)
@@ -19,8 +19,6 @@ struct ContentView: View {
     
     var body: some View {
         VStack(spacing: 30) {
-            Text("\(Int(value))")
-                .font(.largeTitle)
             Text("Подвиньте слайдер как можно ближе к: \(game.targetValue.formatted())")
             
             HStack {
@@ -46,7 +44,6 @@ struct ContentView: View {
             )
             
             Button("Начать заново") {
-                value = 0.0
                 restart()
             }
         }
@@ -55,6 +52,7 @@ struct ContentView: View {
     
     private func restart() {
         game = Game()
+        value = 0.0
     }
     
 }

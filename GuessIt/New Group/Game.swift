@@ -5,6 +5,8 @@
 //  Created by Виталий Гринчик on 5.08.23.
 //
 
+
+/// MODEL
 import Foundation
 
 class Game {

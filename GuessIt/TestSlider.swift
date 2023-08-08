@@ -5,14 +5,16 @@
 //  Created by Виталий Гринчик on 5.08.23.
 //
 
+
+// UIKit view embedding into SwiftUI view struct
 import SwiftUI
 
 struct TestSlider: UIViewRepresentable {
         
     @Binding var currentValue: Float
-    var targetValue: Float
     
-    // Default values - can be set different
+    var targetValue: Float
+    // Default values - can be changed on initialization
     var minValue = 0
     var maxValue = 100
     
@@ -43,7 +45,8 @@ struct TestSlider: UIViewRepresentable {
             red: 1.0,
             green: 0.0,
             blue: 0.0,
-            alpha: thumpOpacity == 0 ? 0.05 : thumpOpacity
+            // Set min opacity to leave thumb visible
+            alpha: thumpOpacity <= 0.05 ? 0.05 : thumpOpacity
         )
     }
     
