@@ -12,16 +12,11 @@ import SwiftUI
 struct TestSlider: UIViewRepresentable {
         
     @Binding var currentValue: Float
-    
-    var targetValue: Float
-    // Default values - can be changed on initialization
-    var minValue = 0
-    var maxValue = 100
+
+    var thumbAlpha: Float
     
     func makeUIView(context: Context) -> UISlider {
         let slider = UISlider()
-        slider.minimumValue = Float(minValue)
-        slider.maximumValue = Float(maxValue)
         slider.value = currentValue
         slider.thumbTintColor = UIColor(
             red: 1.0,
@@ -39,14 +34,13 @@ struct TestSlider: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UISlider, context: Context) {
-        let thumpOpacity = getThumbOpacity()
         uiView.value = currentValue
         uiView.thumbTintColor = UIColor(
             red: 1.0,
             green: 0.0,
             blue: 0.0,
             // Set min opacity to leave thumb visible
-            alpha: thumpOpacity <= 0.05 ? 0.05 : thumpOpacity
+            alpha: CGFloat(thumbAlpha)
         )
     }
     
@@ -56,11 +50,11 @@ struct TestSlider: UIViewRepresentable {
     
     // Calculate thumb opacity corresponding to guessed value proximity
     // to the target value. Slider total range is being taken into account
-    private func getThumbOpacity() -> CGFloat {
-        let range = Float(maxValue - minValue)
-        let delta = abs(currentValue - targetValue)
-        return CGFloat(1 - delta / range)
-    }
+//    private func getThumbOpacity() -> CGFloat {
+//        let range = Float(maxValue - minValue)
+//        let delta = abs(currentValue - targetValue)
+//        return CGFloat(1 - delta / range)
+//    }
 
 }
 
@@ -80,9 +74,6 @@ extension TestSlider {
 
 struct TestSlider_Previews: PreviewProvider {
     static var previews: some View {
-        TestSlider(
-            currentValue: .constant(100),
-            targetValue: Float(0)
-        )
+        TestSlider(currentValue: .constant(0), thumbAlpha: 1.0)
     }
 }

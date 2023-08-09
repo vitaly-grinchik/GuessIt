@@ -23,13 +23,7 @@ struct ContentView: View {
             
             HStack {
                 Text("\(game.minPlayValue.formatted())")
-                TestSlider(
-                    currentValue: $value,
-                    targetValue: Float(game.targetValue),
-                    minValue: game.minPlayValue,
-                    maxValue: game.maxPlayValue
-                )
-                
+                TestSlider(currentValue: $value, thumbAlpha: 1.0)
                 Text("\(game.maxPlayValue.formatted())")
             }
             
