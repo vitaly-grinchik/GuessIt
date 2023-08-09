@@ -13,27 +13,21 @@ struct ContentView: View {
     @State private var targetValue = Float.random(in: 0...1)
     @State private var showingScoreAlert = false
     
-    // Set play range
-    private let minPlayValue = 0
-    private let maxPlayValue = 100
-        
-    // Actually this is a ratio coefficient for set play range relatively to slider default range (0...1)
-    private var ratio: Int {
-        maxPlayValue - minPlayValue
-    }
+    // Set max play range
+    private let maxPlayValue = 50
     
     private var delta: Int {
-        ratio * abs(scale(currentValue - targetValue))
+        abs(scale(currentValue - targetValue))
     }
     
     private var score: Int {
-        Int(100 * delta / ratio)
+        Int(100 - 100 * delta / maxPlayValue)
     }
     
     // Calculate thumb opacity corresponding to guessed value proximity
     // to the target value. Slider total range is being taken into account
     private var thumbAlpha: CGFloat {
-        CGFloat(abs(currentValue - targetValue))
+        CGFloat(1 - abs(currentValue - targetValue))
     }
     
     var body: some View {
@@ -41,13 +35,13 @@ struct ContentView: View {
             Text("Подвиньте слайдер как можно ближе к: \(scale(targetValue))")
             
             HStack {
-                Text("\(minPlayValue.formatted())")
+                Text("0")
                 TestSlider(
                     currentValue: $currentValue,
                     thumbAlpha: thumbAlpha,
                     thumbColor: .red
                 )
-                Text("\(maxPlayValue.formatted())")
+                Text("\(maxPlayValue)")
             }
             
             Button("Проверь меня!") { showingScoreAlert.toggle() }
@@ -68,12 +62,12 @@ struct ContentView: View {
     }
     
     private func restart() {
-        targetValue = Float.random(in: 0...1)
+        targetValue = Float(Int.random(in: 0...maxPlayValue))
         currentValue = Float.random(in: 0...1)
     }
     
     private func scale(_ value: Float) -> Int {
-        Int(Float(ratio) * value)
+        Int(Float(maxPlayValue) * value)
     }
     
 }
