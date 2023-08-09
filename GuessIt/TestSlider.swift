@@ -12,8 +12,7 @@ import SwiftUI
 struct TestSlider: UIViewRepresentable {
         
     @Binding var currentValue: Float
-
-    var thumbAlpha: Float
+    @Binding var thumbAlpha: CGFloat
     
     func makeUIView(context: Context) -> UISlider {
         let slider = UISlider()
@@ -39,22 +38,13 @@ struct TestSlider: UIViewRepresentable {
             red: 1.0,
             green: 0.0,
             blue: 0.0,
-            // Set min opacity to leave thumb visible
-            alpha: CGFloat(thumbAlpha)
+            alpha: thumbAlpha
         )
     }
     
     func makeCoordinator() -> Coordinator {
         Coordinator(value: $currentValue)
     }
-    
-    // Calculate thumb opacity corresponding to guessed value proximity
-    // to the target value. Slider total range is being taken into account
-//    private func getThumbOpacity() -> CGFloat {
-//        let range = Float(maxValue - minValue)
-//        let delta = abs(currentValue - targetValue)
-//        return CGFloat(1 - delta / range)
-//    }
 
 }
 
@@ -74,6 +64,8 @@ extension TestSlider {
 
 struct TestSlider_Previews: PreviewProvider {
     static var previews: some View {
-        TestSlider(currentValue: .constant(0), thumbAlpha: 1.0)
+        TestSlider(
+            currentValue: .constant(0),
+            thumbAlpha: .constant(1))
     }
 }
